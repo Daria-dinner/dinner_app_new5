@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Что на ужин?</title>
+    <!-- Правильный скрипт SDK для Telegram Web App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 { font-size: 24px; margin-bottom: 30px; }
+        .card {
+            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #dinner-name { font-size: 20px; font-weight: bold; color: #3182ce; }
+        #dinner-desc { font-size: 14px; margin-top: 10px; color: #718096; }
+        button {
+            background-color: var(--tg-theme-button-color, #3182ce);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Выбираем ужин на сегодня 🍽️</h1>
+
+    <div class="card">
+        <div id="dinner-name">Нажмите на кнопку ниже</div>
+        <div id="dinner-desc">Система подберёт идеальное блюдо</div>
+    </div>
+
+    <button id="spin-btn">Выбрать случайный ужин</button>
+
+    <script>
+        // Инициализируем Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.ready();      // Сообщаем Telegram, что приложение загрузилось
+        tg.expand();     // Разворачиваем окно на максимум
+
+        // Массив с вариантами ужинов
+        const dinners = [
+            { name: "Паста Карбонара", desc: "Классическая итальянская паста с беконом, сыром и желтком." },
+            { name: "Курица карри с рисом", desc: "Ароматное и сочное блюдо с восточными специями." },
+            { name: "Греческий салат", desc: "Лёгкий ужин со свежими овощами, фетой и оливками." },
+            { name: "Стейк из лосося с брокколи", desc: "Полезный ужин, богатый омега‑3 и витаминами." },
+            { name: "Домашние бургеры", desc: "Сочная котлета, сыр чеддер и любимый соус на булочке." }
+        ];
+
+        const nameElem = document.getElementById('dinner-name');
+        const descElem = document.getElementById('dinner-desc');
+        const btn = document.getElementById('spin-btn');
+
+        btn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * dinners.length);
+            const choice = dinners[randomIndex];
+            
+            nameElem.textContent = choice.name;
+            descElem.textContent = choice.desc;
+        });
+    </script>
+</body>
+</html>
